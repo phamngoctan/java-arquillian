@@ -1,6 +1,5 @@
 package com.java.arquillian.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -17,7 +16,7 @@ public class EmployeeEntity extends BaseEntity {
 	@Column(name="age")
 	private int age;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="department_id", referencedColumnName="id")
 	private DepartmentEntity department;
 

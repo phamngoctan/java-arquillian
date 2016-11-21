@@ -63,7 +63,8 @@ public class EmployeeServiceIT {
     @Before
     public void init() {
     	department = new Department("IT department");
-    	department = departmentService.add(department);
+    	Department addedDepartment = departmentService.add(department);
+    	department = new Department(addedDepartment.getId(), addedDepartment.getName());
     }
  
     @Test
@@ -76,12 +77,13 @@ public class EmployeeServiceIT {
 		Assert.assertThat(actual.getAge(), is(equalTo(25)));
 		Assert.assertThat(actual.getDepartment(), is(equalTo(department)));
 		
-		/*Employee employee2 = new Employee("Jame Bond", 30, department);
+		department.setName("HR department");
+		Employee employee2 = new Employee("Jame Bond", 30, department);
 		Employee actual2 = employeeService.add(employee2);
 		Assert.assertThat(actual2, notNullValue());
 		Assert.assertThat(actual2.getName(), is(equalTo("Jame Bond")));
 		Assert.assertThat(actual2.getAge(), is(equalTo(30)));
-		Assert.assertThat(actual2.getDepartment(), is(equalTo(department)));*/
+		Assert.assertThat(actual2.getDepartment().getName(), is(equalTo("HR department")));
     }
 	
 }
