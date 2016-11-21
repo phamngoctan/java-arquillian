@@ -1,7 +1,5 @@
 package com.java.arquillian.model;
 
-import com.java.arquillian.entity.DepartmentEntity;
-
 public class Employee {
 
 	private Long id;
@@ -10,13 +8,20 @@ public class Employee {
 
 	private int age;
 
-	private DepartmentEntity department;
+	private Department department;
 
 	public Employee() {
 		super();
 	}
+	
+	public Employee(String name, int age, Department department) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.department = department;
+	}
 
-	public Employee(Long id, String name, int age, DepartmentEntity department) {
+	public Employee(Long id, String name, int age, Department department) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -48,11 +53,11 @@ public class Employee {
 		this.age = age;
 	}
 
-	public DepartmentEntity getDepartment() {
+	public Department getDepartment() {
 		return department;
 	}
 
-	public void setDepartment(DepartmentEntity department) {
+	public void setDepartment(Department department) {
 		this.department = department;
 	}
 

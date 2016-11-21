@@ -2,6 +2,7 @@ package com.java.arquillian.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -14,8 +15,18 @@ public class DepartmentEntity extends BaseEntity {
 	@Column(name="name")
 	private String name;
 	
-	@OneToMany(mappedBy="department")
+	@OneToMany(mappedBy="department", cascade = CascadeType.ALL)
 	private List<EmployeeEntity> employees;
+
+	public DepartmentEntity() {
+		super();
+	}
+
+	public DepartmentEntity(Long id, String name) {
+		super();
+		this.name = name;
+		this.setId(id);
+	}
 
 	public DepartmentEntity(String name) {
 		super();

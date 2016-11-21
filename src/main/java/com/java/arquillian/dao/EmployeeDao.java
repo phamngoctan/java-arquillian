@@ -12,7 +12,7 @@ import com.java.arquillian.entity.EmployeeEntity;
 public class EmployeeDao {
 
 	@PersistenceContext(name = "testing-h2")
-	EntityManager em;
+	private EntityManager em;
 
 	public void insert(EmployeeEntity employee) {
 		em.persist(employee);

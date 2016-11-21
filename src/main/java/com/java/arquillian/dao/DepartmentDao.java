@@ -10,7 +10,7 @@ import com.java.arquillian.entity.DepartmentEntity;
 public class DepartmentDao {
 	
 	@PersistenceContext(name = "testing-h2")
-	EntityManager em;
+	private EntityManager em;
 
 	// TODO: check if should we return object or void for insertion case in RESTFul
 	/*public void insert(DepartmentEntity department) {
