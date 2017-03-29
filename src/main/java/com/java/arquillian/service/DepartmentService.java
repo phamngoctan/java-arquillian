@@ -17,7 +17,7 @@ public class DepartmentService {
 	
 	public Department add(Department department) {
 		DepartmentEntity departmentEntity = new DepartmentEntity(department.getId(), department.getName());
-		departmentEntity = departmentDao.insert(departmentEntity);
+		departmentEntity = departmentDao.merge(departmentEntity);
 		department = new Department(departmentEntity.getId(), departmentEntity.getName());
 		return department;
 	}

@@ -1,14 +1,14 @@
 package com.java.arquillian.service;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+
+import java.util.Arrays;
 
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ArchivePath;
 import org.jboss.shrinkwrap.api.Filter;
 import org.jboss.shrinkwrap.api.Filters;
@@ -20,14 +20,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.java.arquillian.model.Department;
-import com.java.arquillian.model.Employee;
+import com.java.arquillian.dao.WebsiteDao;
+import com.java.arquillian.entity.WebsiteEntity;
 
 @RunWith(Arquillian.class)
-public class EmployeeServiceIT {
+public class WebsiteServiceIT {
 	 
     @Deployment
-    public static Archive<?> createDeployment() {
+    public static WebArchive createDeployment() {
     	
     	WebArchive war = ShrinkWrap.create(WebArchive.class, "test.war")
     	.addPackages(true, excludeTests(), "com.java.arquillian")
@@ -54,37 +54,24 @@ public class EmployeeServiceIT {
 	}
  
     @Inject
-    private EmployeeService employeeService;
-    
-    @Inject
-    private DepartmentService departmentService;
-    
-    private Department department;
+    private WebsiteService websiteService;
     
     @Before
     public void init() {
-    	department = new Department("IT department");
-    	Department addedDepartment = departmentService.add(department);
-    	department = new Department(addedDepartment.getId(), addedDepartment.getName());
     }
  
     @Test
     public void add_happyCase() {
-		Employee employee = new Employee("Tan Pham", 25, department);
-		Employee actual = employeeService.add(employee);
+    	WebsiteEntity websiteEntity = websiteService.add("http://abc.com", "Tan Pham", Arrays.asList("xyz.com", "bcd.com"));
 		
-		Assert.assertThat(actual, notNullValue());
-		Assert.assertThat(actual.getName(), is(equalTo("Tan Pham")));
-		Assert.assertThat(actual.getAge(), is(equalTo(25)));
-		Assert.assertThat(actual.getDepartment(), is(equalTo(department)));
+		Assert.assertThat(websiteEntity, notNullValue());
+		Assert.assertThat(websiteEntity.getUrl(), equalTo("http://abc.com"));
 		
-		department.setName("HR department");
-		Employee employee2 = new Employee("Jame Bond", 30, department);
-		Employee actual2 = employeeService.add(employee2);
-		Assert.assertThat(actual2, notNullValue());
-		Assert.assertThat(actual2.getName(), is(equalTo("Jame Bond")));
-		Assert.assertThat(actual2.getAge(), is(equalTo(30)));
-		Assert.assertThat(actual2.getDepartment().getName(), is(equalTo("HR department")));
+		Assert.assertThat(websiteEntity.getArtist(), notNullValue());
+		Assert.assertThat(websiteEntity.getArtist().getName(), equalTo("Tan Pham"));
+		
+		websiteService.remove(websiteEntity.getId());
+		Assert.assertThat(1, equalTo(1));
     }
 	
 }

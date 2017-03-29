@@ -17,16 +17,20 @@ public class EmployeeService {
 	@Inject
 	private EmployeeDao employeeDao;
 	
-	public Employee add(Employee empl) {
+	public Employee add(Employee employee) {
 //		DepartmentEntity department = new DepartmentEntity(empl.getDepartment().getId(), empl.getDepartment().getName());
 //		DepartmentEntity departmentEntity = departmentDao.insert(department);
 		
-		DepartmentEntity department = new DepartmentEntity(empl.getDepartment().getId(), empl.getDepartment().getName());
-		EmployeeEntity insertedEmployee = new EmployeeEntity(empl.getName(), empl.getAge(), department);
+		DepartmentEntity department = new DepartmentEntity(employee.getDepartment().getId(), employee.getDepartment().getName());
+		EmployeeEntity insertedEmployee = new EmployeeEntity(employee.getName(), employee.getAge(), department);
 
-		employeeDao.insert(insertedEmployee);
+		employeeDao.merge(insertedEmployee);
 		return new Employee(insertedEmployee.getId(), insertedEmployee.getName(), insertedEmployee.getAge(),
 				new Department(insertedEmployee.getDepartment().getId(), insertedEmployee.getDepartment().getName()));
+	}
+	
+	public void remove(Long employeeId) {
+		employeeDao.remove(employeeId);
 	}
 	
 }
