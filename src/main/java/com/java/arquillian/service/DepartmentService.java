@@ -22,4 +22,8 @@ public class DepartmentService {
 		return department;
 	}
 	
+	public DepartmentEntity find(Long departmentId) {
+		return departmentDao.find(departmentId);
+	}
+	
 }

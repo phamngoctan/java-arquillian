@@ -20,6 +20,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.java.arquillian.entity.DepartmentEntity;
 import com.java.arquillian.model.Department;
 import com.java.arquillian.model.Employee;
 
@@ -70,6 +71,11 @@ public class EmployeeServiceIT {
  
     @Test
     public void add_happyCase() {
+    	DepartmentEntity returnDepartment = departmentService.find(department.getId());
+    	// Test the oneToMany relation to check whether it return null or empty collection
+    	Assert.assertThat(returnDepartment, notNullValue());
+    	Assert.assertThat(returnDepartment.getEmployees(), notNullValue());
+    	
 		Employee employee = new Employee("Tan Pham", 25, department);
 		Employee actual = employeeService.add(employee);
 		

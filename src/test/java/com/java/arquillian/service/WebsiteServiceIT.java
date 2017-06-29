@@ -20,7 +20,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.java.arquillian.dao.WebsiteDao;
 import com.java.arquillian.entity.WebsiteEntity;
 
 @RunWith(Arquillian.class)
