@@ -4,6 +4,8 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -91,6 +93,15 @@ public class EmployeeServiceIT {
 		Assert.assertThat(actual2.getName(), is(equalTo("Jame Bond")));
 		Assert.assertThat(actual2.getAge(), is(equalTo(30)));
 		Assert.assertThat(actual2.getDepartment().getName(), is(equalTo("HR department")));
+    }
+    
+    @Test
+    public void findByName_happyCase_testWhetherManyToOneRelationship_loadParentEntityWithOneMoreQueryOrNot() {
+    	Employee employee = new Employee("findByName_happyCase", 25, department);
+		employeeService.add(employee);
+		
+    	List<Employee> actual = employeeService.findByName("findByName_happyCase");
+    	Assert.assertThat(actual, notNullValue());
     }
 	
 }

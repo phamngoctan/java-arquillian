@@ -1,5 +1,9 @@
 package com.java.arquillian.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -31,6 +35,15 @@ public class EmployeeService {
 	
 	public void remove(Long employeeId) {
 		employeeDao.remove(employeeId);
+	}
+	
+	public List<Employee> findByName(String name) {
+		List<EmployeeEntity> resultFindByName = employeeDao.findByName(name);
+		List<Employee> result = new ArrayList<>();
+		for (EmployeeEntity employee : resultFindByName) {
+			result.add(new Employee(employee.getId(), employee.getName(), employee.getAge(), null));
+		}
+		return result;
 	}
 	
 }
