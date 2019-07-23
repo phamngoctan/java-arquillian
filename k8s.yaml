@@ -16,3 +16,22 @@ spec:
       containers:
       - name: hello-world-container
         image: eu.gcr.io/klara-tryout/hello_world:v1
+        # Add opening port
+        ports:                                      #+
+        - containerPort: 8080                       #+
+          name: http                                #+
+---
+kind: Service                #+
+apiVersion: v1               #+
+metadata:                    #+
+  name: hello-world-service  #+
+  namespace: tan             #+
+spec:                        #+
+  selector:                  #+
+    app: hello-world         #+
+  ports:                     #+
+  - protocol: TCP            #+
+    targetPort: 8080         #+
+    port: 8080               #+
+    name: http               #+
+  type: LoadBalancer         #+
