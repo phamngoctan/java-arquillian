@@ -6,12 +6,12 @@ metadata:
 spec:
   replicas: 2
   selector:
-    matchLabels:
+    matchLabels:              # tells what pods the deployment will apply to, refer to line number 11 for pod template
       app: hello-world
-  template:
+  template:                   # actually, this is the pod template, describes a pod that is launched
     metadata:
       labels:
-        app: hello-world
+        app: hello-world      # this should match with the matchLabels value above, otherwise, this kind of pod will not be controlled by the above deployment
     spec:
       containers:
       - name: hello-world-container
