@@ -11,4 +11,4 @@ The container resides in a separate JVM and its lifecycle (startup/shutdown) is 
 
 ### for arquillian.xml file
 We can delete it completely and arquillian automatically pick the 127.0.0.1:9990 to deploy
-Otherwise, it will base on the arquillian.xml to pick the remote host
+Otherwise, it will base on the arquillian.xml to pick the remote host, if you want, just rename the arquillian_bk.xml to arquillian.xml
